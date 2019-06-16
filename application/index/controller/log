@@ -1,0 +1,10 @@
+***** start
+***** 当前目录：/home/wwwroot/mohs/public
+***** 默认压缩包地址目录：uploads/20190512
+***** 项目所在的目录：
+***** 需要解压的文件：uploads/20190512/20190512182230_mapreduceserializebean001SNAPSHOT.jar
+***** 解压后的地址：/home/wwwroot/mohs/public/uploads/20190512/udir/20190512182230_mapreduceserializebean001SNAPSHOT
+***** pom文件所在目录：/home/wwwroot/mohs/public/uploads/20190512/udir/20190512182230_mapreduceserializebean001SNAPSHOT/META-INF/maven/demo.mr/mapreduce-serializebean/pom.xml
+***** pom文件所在根目录：uploads/20190512/20190512182230_mapreduceserializebean001SNAPSHOT/home/wwwroot/mohs/public/uploads/20190512/udir/20190512182230_mapreduceserializebean001SNAPSHOT/META-INF/maven/demo.mr/mapreduce-serializebean/
+***** ld目录：/home/wwwroot/mohs/public/uploads/20190512/udir/20190512182230_mapreduceserializebean001SNAPSHOT/META-INF/maven/demo.mr/mapreduce-serializebean/
+***** excute mvn

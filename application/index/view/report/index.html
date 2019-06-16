@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>开源组件健康扫描</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="开源组件，健康扫描" />
+    <!-- bootstrap-css -->
+    <link href="/MOHS/public/static/assets2/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <!--// bootstrap-css -->
+    <!-- css -->
+    <link href="/MOHS/public/static/assets2/css/style.css" rel="stylesheet"  type="text/css" media="all" />
+    <link href="/MOHS/public/static/assets2/css/bootstrap-treeview.css" rel="stylesheet">
+    <!--// css -->
+    <!-- font-awesome icons -->
+    <link href="/MOHS/public/static/assets2/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <script src="/MOHS/public/static/assets2/js/jquery-2.2.3.min.js"></script>
+    <script src="/MOHS/public/static/assets2/js/bootstrap.js"></script>
+    <script src="/MOHS/public/static/assets2/js/bootstrap-treeview.js"></script>
+    <style>
+        .w3-agile-grid a{
+            color: #b5b5b5;
+        }
+        .w3-agile-grid a:hover{
+            color: #FF5722;
+        }
+        .download{
+            position: absolute;
+            margin-top: 15px;
+            margin-left: 71%;
+        }
+        .option{
+            margin-top: -20px;
+            margin-left: 3%;
+        }
+        .option a{
+            width: 250px;
+            text-align: center;
+            color: #FF5722;
+        }
+        .option table a{
+            padding: .25rem .5rem;
+            font-size: .875rem;
+            border-radius: 3px;
+            color: #fff;
+        }
+        #count{
+            position: absolute;
+            margin-top: -35px;
+            margin-left: 15px;
+        }
+    </style>
+</head>
+<body>
+<!-- w3-banner -->
+<div class="w3-banner jarallax">
+    <div class="wthree-different-dot">
+        <div class="w3layouts-header-top">
+            <div class="container">
+                <div class="w3-header-top-grids">
+                    <div class="w3-header-top-left">
+                        <p><i class="fa fa-wrench"></i>&nbsp;&nbsp;&nbsp;&nbsp;Maven工程开源组件健康扫描</p>
+                    </div>
+                    <div class="w3-header-top-right">
+                        <div class="agileinfo-social-grids">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-github"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="head">
+            <div class="container">
+                <div class="navbar-top">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="navbar-brand logo ">
+                            <h1><a href="{:url('index/index/index')}">MOHS</a></h1>
+                        </div>
+
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav link-effect-4">
+                            <li><a href="{:url('index/index/index')}">主页</a></li>
+                            <li><a href="{:url('index/upload/index')}">工程上传</a></li>
+                            <li><a href="#">登录</a></li>
+                            <li><a href="#">免费注册</a></li>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span data-letters="Pages">产品与文档</span><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">产品下载</a></li>
+                                    <li><a href="#">帮助文档</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">关于我们</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //w3-banner -->
+
+<!-- upload-file -->
+<div class="contact agileits">
+    <div class="container">
+        <div class="option">
+            <div class="download">
+                <a href="{:url('index/report/download?file_dir',['file_dir'=>$report])}"><i class="fa fa-download" aria-hidden="true"></i>下载报告</a>
+            </div>
+            <div class="card">
+                <ul class="nav nav-tabs nav-tabs-neutral nav-tabs-justified " role="tablist">
+                    <li class="active">
+                        <a class="nav-link active" data-toggle="tab" href="#home1" role="tab" style="width: 500px">
+                            <i class="fa fa-arrows" aria-hidden="true"></i>
+                            组件依赖报告
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" data-toggle="tab" href="#profile1" role="tab" style="width: 500px">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            组件健康报告
+                        </a>
+                    </li>
+                </ul>
+                <br/><br/>
+                <div class="card-body">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home1" role="tabpanel">
+                            <div class="bs-docs-example">
+                                <div id="count"></div>
+                                <div id="report"></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="profile1" role="tabpanel">
+                            <div class="bs-docs-example">
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>组件(G:A:V)</th>
+                                        <th>漏洞详情</th>
+                                        <th>License详情</th>
+                                        <th>热度详情</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {foreach name="$allcomps" item="comp"}
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-archive" aria-hidden="true"></i>
+                                            {$comp.gav[0]}:{$comp.gav[1]}:{$comp.gav[2]}
+                                        </td>
+                                        <td>
+                                            <a href="#" class="badge-success" data-toggle="modal" data-target="#myModal1">
+                                                <i class="fa  fa-key" aria-hidden="true"></i>
+                                                漏洞详情
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="progress-bar-info" data-toggle="modal" data-target="#myModal3" data-gav="{$comp.gav[0]}:{$comp.gav[1]}:{$comp.gav[2]}">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                 License详情
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="badge-warning" data-toggle="modal" data-target="#myModal2" data-gav="{$comp.gav[0]}:{$comp.gav[1]}:{$comp.gav[2]}">
+                                                <i class="fa fa-fire" aria-hidden="true"></i>
+                                                热度详情
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //upload-file -->
+
+<!-- modal for footer -->
+<div class="modal about-modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>				<span class="badge badge-success text">公告</span>
+                <h5 class="modal-title">[2019年4月8日] 产品说明</h5>
+            </div>
+            <div class="modal-body">
+                <div class="agileits-w3layouts-info">
+                    <p>亲爱的用户：<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你们好！我们的开源组件健康扫描工具目前只支持Maven工程。我们产品有web站点上传工程扫描、Eclipse插件两种形式。我们的团队正在不断努力，争取早日开发出可扫描多种类型工程的开源组件健康扫描工具。我们也在尝试推出更多形式的新产品，例如作为多种IDE开发环境的插件等，以满足不同用户的需求。一有新功能、新产品上线，我们会立即通过邮件提醒您使用并评测给出相关建议，敬请期待！
+                    <p class="w3-header-top-right">
+                        ---北京大学软件与微电子学院张老师说的都队粉丝团
+                    </p>
+                    </p>
+                    <br/><br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //modal for footer -->
+<!-- modal1 for footer -->
+<div class="modal about-modal fade" id="myModal1" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                    详情及解决方案
+                </h4>
+            </div>
+            <div class="modal-body">
+                <h5>漏洞详情：</h5>
+                <p>组件名称:&nbsp;&nbsp;&nbsp;&nbsp;commons-beanutils:commons-beanutils:1.9.3</p>
+                <p>漏洞编号:&nbsp;&nbsp;&nbsp;&nbsp;CVE-2016-1000031</p>
+                <p>漏洞等级：<span class="badge badge-danger">9</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    影响力得分：<span class="badge badge-success">5.9</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    可利用性得分：<span class="badge badge-warning">3.9</span>
+                </p>
+                <p>攻击向量：网络&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    攻击复杂性：低&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    权限要求：无&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    用户交互：无
+                </p>
+                <p>范围：不变&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    机密性：高&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    完整性：高&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    可用性：高
+                </p>
+                <hr/>
+                <h5>推荐解决方案：</h5>
+                <div class="bs-docs-example">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>链接</th>
+                            <th>资源</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <a href="http://www.oracle.com/technetwork/security-advisory/cpuoct2018-4428296.html" target="_blank">
+                                    http://www.oracle.com/technetwork/security-advisory/cpuoct2018-4428296.html
+                                </a>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="http://www.securityfocus.com/bid/93604" target="_blank">
+                                    http://www.securityfocus.com/bid/93604
+                                </a>
+                            </td>
+                            <td>
+                                <span class="badge badge-info">第三方咨询</span>
+                                <span class="badge badge-info">VDB条目</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="http://www.zerodayinitiative.com/advisories/ZDI-16-570/" target="_blank">
+                                    http://www.zerodayinitiative.com/advisories/ZDI-16-570/
+                                </a>
+                            </td>
+                            <td>
+                                <span class="badge badge-info">第三方咨询</span>
+                                <span class="badge badge-info">VDB条目</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://issues.apache.org/jira/browse/FILEUPLOAD-279" target="_blank">
+                                    https://issues.apache.org/jira/browse/FILEUPLOAD-279
+                                </a>
+                            </td>
+                            <td>
+                                <span class="badge badge-info">供应商咨询</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="https://issues.apache.org/jira/browse/WW-4812" target="_blank">
+                                    https://issues.apache.org/jira/browse/WW-4812
+                                </a>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //modal1 for footer -->
+<!-- modal2 for footer -->
+<div class="modal about-modal fade" id="myModal2" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>
+                    <i class="fa fa-fire" aria-hidden="true"></i>
+                    各个版本及热度
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p id="gav_name1"></p>
+                <p id="wait1"></p>
+                <p id="latest" style="color: #FF5722"></p>
+                <p id="most" style="color: #ff5722"></p>
+                <div class="bs-docs-example">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th id="version_count">版本</th>
+                            <th>热度（使用数量）</th>
+                        </tr>
+                        </thead>
+                        <tbody id="hot">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //modal2 for footer -->
+<!-- modal3 for footer -->
+<div class="modal about-modal fade" id="myModal3" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="width: 1000px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4>
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    License详情
+                </h4>
+            </div>
+            <div class="modal-body">
+                <p id="gav_name"></p>
+                <p id="wait"></p>
+                <div class="bs-docs-example">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th id="license_count">License</th>
+                            <th>完整详情</th>
+                        </tr>
+                        </thead>
+                        <tbody id="license">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //modal3 for footer -->
+
+<!-- footer -->
+<div class="agileits-w3layouts-footer">
+    <div class="container">
+        <div class="col-md-4 w3-agile-grid">
+            <h5>关于我们</h5>
+            <p>
+                团队：张老师说的都队粉丝团
+            </p>
+            <p>
+                成员：杨雨月 黄捷 柳俊志 张帆 孙佳静 闫雅铭 董亚聪 傅广播 范佳慧 王毅  徐辉 明瑶
+                <br/>
+            </p>
+            <p>
+                我们是一支专注、努力、认真，不断学习的团队，立志做出中国最好用的开源组件健康扫描工具。
+            </p>
+            <div class="footer-agileinfo-social">
+                <ul>
+                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-1 w3-agile-grid"></div>
+        <div class="col-md-3 w3-agile-grid">
+            <h5>帮助与支持</h5>
+            <p><a href="#" data-toggle="modal" data-target="#myModal">最新公告</a></p>
+            <p><a href="#" >产品下载</a></p>
+            <p><a href="#" >帮助文档</a></p>
+            <br/><br/>
+        </div>
+        <div class="col-md-4 w3-agile-grid">
+            <h5>联系我们</h5>
+            <div class="w3-address">
+                <div class="w3-address-grid">
+                    <div class="w3-address-left">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                    </div>
+                    <div class="w3-address-right">
+                        <h6>电 话</h6>
+                        <p>+1 234 567 8901</p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="w3-address-grid">
+                    <div class="w3-address-left">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </div>
+                    <div class="w3-address-right">
+                        <h6>邮 箱</h6>
+                        <p><a href="mailto:example@email.com"> fansofzhang@pku.edu.cn</a></p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class="w3-address-grid">
+                    <div class="w3-address-left">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    </div>
+                    <div class="w3-address-right">
+                        <h6>地 址</h6>
+                        <p>北京市大兴工业开发区金苑路24号北京大学软件与微电子学院
+                        </p>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<div class="copyright">
+    <div class="container">
+        <p>Copyright &copy; 2019.北京大学软件与微电子学院张老师说的都队粉丝团.
+            友情链接 <a href="http://www.ss.pku.edu.cn/" target="_blank" title="北京大学软件与微电子学院">北京大学软件与微电子学院</a>
+        </p>
+    </div>
+</div>
+<!-- //footer -->
+
+
+<!-- jsforreport -->
+<script type="text/javascript">
+    //组件依赖
+    function getTree() {
+        //最终控件所需的数据形式 data
+        var data = '{$comps}';
+        var tree_data= JSON.parse(data);
+        console.log(tree_data);
+        return tree_data;
+    }
+
+    $('#report').treeview({
+        levels: 1,
+        showImage: true,
+        borderColor: "#ffffff",
+        color: "#666666",
+        showTags: true,
+        data: getTree().info
+    });
+    $('#count').html("组件总数："+"<span class='badge badge-success'>"+getTree().count+"</span>");
+
+    //license详情
+    $('#myModal3').on('show.bs.modal', function (e) {
+        var gav = $(e.relatedTarget).data("gav");
+        $("#gav_name").text("组件名称(G:A:V)："+gav);
+        $("#wait").text("正在查询中，请稍后......")
+        $("#license_count").html("License: ");
+        $("#license").html("");
+        $.ajax({
+            url:"{:url('index/upload/getLicense')}",
+            type:"POST",
+            data:{"info":gav},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#wait").text("");
+                $("#license_count").html("License: "+"共<span style='color: #FF5722'>"+data.length+"</span>个License");
+                var tb = document.getElementById("license");
+                for(var i=0;i < data.length;i++){
+                    var row = tb.insertRow(tb.rows.length);
+                    var c1 = row.insertCell(0);
+                    c1.innerHTML = data[i];
+                    var c2 = row.insertCell(1);
+                    var url = data[i].trim().split(" ");
+                    if(url.length==2){
+                        c2.innerHTML = "<a href ='https://spdx.org/licenses/"+url[0]+"-"+url[1]+".html#licenseText'" +"target='_blank'>完整详情</a>"
+                    }
+                    if(url.length==1){
+                        c2.innerHTML = "<a href ='https://spdx.org/licenses/"+url[0]+".html#licenseText'" +"target='_blank'>完整详情</a>"
+                    }
+                }
+            }
+        })
+    });
+
+    //热度详情
+    $('#myModal2').on('show.bs.modal', function (e) {
+        var gav = $(e.relatedTarget).data("gav");
+        $("#gav_name1").text("组件名称(G:A:V)："+gav);
+        $("#wait1").text("正在查询中，请稍后......")
+        $("#latest").text("");
+        $("#most").text("");
+        $("#version_count").html("版本: ");
+        $("#hot").html("");
+        $.ajax({
+            url:"{:url('index/upload/restspid')}",
+            type:"POST",
+            data:{"info":gav},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#wait1").text("");
+                $("#latest").text("最新版本："+data["latest"]);
+                $("#most").text("使用最多的版本："+data["most"]);
+                $("#version_count").html("版本: "+"共<span style='color: #FF5722'>"+data["count"]+"</span>个版本");
+                var tb = document.getElementById("hot");
+                for(var i=0;i < data["count"];i++){
+                    var row = tb.insertRow(tb.rows.length);
+                    var c1 = row.insertCell(0);
+                    c1.innerHTML = data.info[i].version;
+                    var c2 = row.insertCell(1);
+                    c2.innerHTML = data.info[i].Usages;
+                }
+            }
+        })
+    });
+</script>
+<!-- //jsforreport -->
+
+
+
+</body>
+</html>

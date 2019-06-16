@@ -1,0 +1,10 @@
+[INFO] ------------------< demo.mr:mapreduce-serializebean >-------------------
+[INFO] 	"demo.mr:mapreduce-serializebean:jar:0.0.1-SNAPSHOT" -> "commons-beanutils:commons-beanutils:jar:1.9.3:compile" ; 
+[INFO] 	"demo.mr:mapreduce-serializebean:jar:0.0.1-SNAPSHOT" -> "org.apache.hadoop:hadoop-common:jar:2.7.2:compile" ; 
+[INFO] 	"demo.mr:mapreduce-serializebean:jar:0.0.1-SNAPSHOT" -> "org.apache.hadoop:hadoop-hdfs:jar:2.7.2:compile" ; 
+[INFO] 	"demo.mr:mapreduce-serializebean:jar:0.0.1-SNAPSHOT" -> "org.apache.hadoop:hadoop-mapreduce-client-common:jar:2.7.2:compile" ; 
+[INFO] 	"demo.mr:mapreduce-serializebean:jar:0.0.1-SNAPSHOT" -> "org.apache.hadoop:hadoop-mapreduce-client-core:jar:2.7.2:compile" ; 
+[INFO] 	"commons-beanutils:commons-beanutils:jar:1.9.3:compile" -> "commons-logging:commons-logging:jar:1.2:compile" ; 
+[INFO] 	"commons-beanutils:commons-beanutils:jar:1.9.3:compile" -> "commons-collections:commons-collections:jar:3.2.2:compile" ; 
+[INFO] 	"org.apache.hadoop:hadoop-common:jar:2.7.2:compile" -> "org.apache.hadoop:hadoop-annotations:jar:2.7.2:compile" ; 
+[INFO] 	"org.apache.hadoop:hadoop-common:jar:2.7.2:compile" -> "com.google.guava:guava:jar:11.0.2:compile" ;
